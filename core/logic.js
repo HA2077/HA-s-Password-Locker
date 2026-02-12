@@ -10,7 +10,7 @@ const CHARS ={
 
 // Get a secure random int from (0 to max-1)
 function getSecureRandomInt(max){
-    const cryptoObj = (typeof crypto !== 'undefined') ? crypto : globalThis.crypto;
+    const cryptoObj = (typeof crypto !== 'undefined') ? crypto : require('crypto').webcrypto;
     
     const array = new Uint32Array(1);
     cryptoObj.getRandomValues(array);
@@ -35,7 +35,7 @@ function secureShuffle(array){
 }
 
 // The Main Function
-export function generatePassword(length = 16, useLower = true, useUpper = true, useSym = true, useNum = true){
+function generatePassword(length = 16, useLower = true, useUpper = true, useSym = true, useNum = true){
     let availableChars = "";
     let passwordArray = [];
 
@@ -68,3 +68,4 @@ export function generatePassword(length = 16, useLower = true, useUpper = true, 
     // Get a password string
     return passwordArray.join('');
 }
+module.exports = { generatePassword };
