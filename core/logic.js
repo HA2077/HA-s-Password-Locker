@@ -1,4 +1,7 @@
-// This file is the core logic for generating a secure password. 
+/*
+This file is the core logic for generating a secure password. 
+MADE BY : HA2077
+*/
 
 // Get all the characters we can use in our password
 const CHARS ={
@@ -35,7 +38,7 @@ function secureShuffle(array){
 }
 
 // The Main Function
-function generatePassword(length = 16, useLower = true, useUpper = true, useSym = true, useNum = true){
+function generatePassword(length = 16, useLower = true, useUpper = true, useSym = true, useNum = true, unique = false){
     let availableChars = "";
     let passwordArray = [];
 
@@ -50,22 +53,40 @@ function generatePassword(length = 16, useLower = true, useUpper = true, useSym 
         availableChars = CHARS.lowercase;
     }
 
+    // SAFETY CHECK: If length > pool size, duplicates MUST be allowed
+    if (unique && length > availableChars.length){
+        console.warn(`⚠️ Cannot fulfill 'Unique' request. Pool size (${availableChars.length}) < Length (${length}). Disabling uniqueness.`);
+        unique = false;
+    }
+    
+    // Helper to pick a char while respecting uniqueness
+    const pickChar = (pool) =>{
+        let char = secureChoice(pool);
+        if (unique){
+            let attempts = 0; 
+            // Safety break after 50 tries to prevent infinite loops if logic fails
+            while (passwordArray.includes(char) && attempts < 50){
+                char = secureChoice(pool);
+                attempts++;
+            }
+        }
+        return char;
+    };
+
     // Ensure at least one of each selected type is included
-    if (useLower) passwordArray.push(secureChoice(CHARS.lowercase));
-    if (useUpper) passwordArray.push(secureChoice(CHARS.uppercase));
-    if (useSym)   passwordArray.push(secureChoice(CHARS.symbols));
-    if (useNum)   passwordArray.push(secureChoice(CHARS.numbers));
+    if (useLower) passwordArray.push(pickChar(CHARS.lowercase));
+    if (useUpper) passwordArray.push(pickChar(CHARS.uppercase));
+    if (useSym)   passwordArray.push(pickChar(CHARS.symbols));
+    if (useNum)   passwordArray.push(pickChar(CHARS.numbers));
 
     const remainingLength = length - passwordArray.length;
-    
-    for (let i = 0;i < remainingLength; i++){
-        passwordArray.push(secureChoice(availableChars));
+    for (let i = 0; i < remainingLength; i++){
+        passwordArray.push(pickChar(availableChars));
     }
 
-    // Scramble!
+    // Scramble
     secureShuffle(passwordArray);
 
-    // Get a password string
     return passwordArray.join('');
 }
 module.exports = { generatePassword };
