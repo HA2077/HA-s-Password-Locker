@@ -19,7 +19,7 @@ You can run the password generator right now in your terminal to verify the entr
 ### Steps
 1.  **Clone the repo:**
     ```bash
-    git clone [https://github.com/HA2077/HA-s-Password-Locker.git](https://github.com/HA2077/HA-s-Password-Locker.git)
+    git clone https://github.com/HA2077/HA-s-Password-Locker.git
     ```
 
 2.  **Go into the folder:**
@@ -48,12 +48,12 @@ If the engine is working correctly, you will see something like this:
    ✅ PASS
 
 🔹 TEST 3: Fallback (No options selected)
-No character types selected! Defaulting to lowercase.
+   No character types selected! Defaulting to lowercase.
    Output: dndrioxdzk
    ✅ PASS (Defaulted to Lowercase)
 
 🔹 TEST 4: Unique Constraint Check
-⚠️ Cannot fulfill 'Unique' request. Pool size (10) < Length (12). Disabling uniqueness.
+   ⚠️ Cannot fulfill 'Unique' request. Pool size (10) < Length (12). Disabling uniqueness.
    Output: 892838464308
    ✅ PASS: Logic correctly allowed duplicates (Pool 10 < Length 12).
 
