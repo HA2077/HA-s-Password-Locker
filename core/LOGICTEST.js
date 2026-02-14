@@ -5,7 +5,7 @@ MADE BY : HA2077
 
 const { generatePassword } = require('./logic.js');
 
-console.log("\n --- HA's Password Locker: Deep Logic Test ---\n");
+console.log("\n --- HA's Password Locker: Logic Test ---\n");
 
 // Helper to check regex matches
 function testRegex(pass, regex, name) {
