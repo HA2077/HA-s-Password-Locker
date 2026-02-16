@@ -1,7 +1,13 @@
-# HA's Password Locker 🔒
+# HA's Password Locker
 
 > **Status:** v0.2 (Engine & Encryption Complete)  
 > **Mission:** A privacy-first, local-only password manager browser extension.
+
+<p align="center">
+  <img src="icons/Logo%20with%20Text.png" alt="HA's Password Locker Official Logo" width="300">
+  <br>
+  <b>Official Project Logo</b>
+</p>
 
 ## 👋 What is this?
 **HA's Password Locker** is a browser extension that gives you total control over your credentials. Unlike commercial password managers, this stores data **locally** on your device, encrypted with your personal master key.
@@ -91,7 +97,7 @@ Verify that data is correctly scrambled (AES-GCM) and can be decrypted with the 
 ---
 
 ## 🔜 Next Steps
-1.  `manifest.json` Configuration
+1.  Password Manager Logic
 2.  Popup UI Implementation
 3.  Browser Integration
 
