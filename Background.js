@@ -1,0 +1,1 @@
+console.log("HA's BACKGROUND SCRIPT");
