@@ -20,9 +20,10 @@
   },
 
   "background": {
-    "service_worker": "Background.js",
-    "type": "module"
-  },
+  "service_worker": "Background.js",
+  "scripts": ["Background.js"],
+  "type": "module"
+},
 
   "icons": {
     "16": "icons/Logo16.png",
