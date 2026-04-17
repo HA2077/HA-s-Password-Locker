@@ -5,7 +5,7 @@
 
 const cryptoObj = (typeof crypto !== 'undefined') ? crypto : require('crypto').webcrypto;
 const ALGO_NAME = "AES-GCM";
-const PBKDF2_ITERATIONS = 100000;
+const PBKDF2_ITERATIONS = 600000;
 const SALT_LEN = 16;
 const IV_LEN = 12;
 
