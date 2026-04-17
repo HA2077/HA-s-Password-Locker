@@ -1,6 +1,6 @@
 // Test script for encryption module
 
-const { encrypt, decrypt } = require('./passencryption.js');
+const { encrypt, decrypt } = require('../passencryption.js');
 
 if (typeof btoa === 'undefined') {
     global.btoa = (str) => Buffer.from(str).toString('base64');

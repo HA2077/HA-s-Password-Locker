@@ -15,19 +15,13 @@ function base64ToBuff(base64) {
     return Uint8Array.from(atob(base64), c => c.charCodeAt(0));
 }
 
-/*
-  Generate a random salt for PBKDF2
-  Returns: base64 encoded salt
-*/
+// Generate a random salt for PBKDF2           Returns: base64 encoded salt
 function generateSalt() {
     const salt = cryptoObj.getRandomValues(new Uint8Array(SALT_LEN));
     return buffToBase64(salt);
 }
 
-/*
-  Hash a password using PBKDF2 with SHA-256
-  Returns: base64 encoded hash
-*/
+// Hash a password using PBKDF2 with SHA-256   Returns: base64 encoded hash
 async function hashPassword(password, salt) {
     const encoder = new TextEncoder();
     const saltBytes = base64ToBuff(salt);
@@ -57,10 +51,7 @@ async function hashPassword(password, salt) {
     return buffToBase64(exportedKey);
 }
 
-/*
-  Verify a password against a stored hash
-  Returns: boolean
-*/
+// Verify a password against a stored hash      Returns: boolean
 async function verifyPassword(password, storedHash, salt) {
     const computedHash = await hashPassword(password, salt);
     return computedHash === storedHash;

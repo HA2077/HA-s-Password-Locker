@@ -1,6 +1,6 @@
 // Test script for auth module
 
-const { hashPassword, verifyPassword, generateSalt, PBKDF2_ITERATIONS } = require('./auth.js');
+const { hashPassword, verifyPassword, generateSalt, PBKDF2_ITERATIONS } = require('../auth.js');
 
 if (typeof btoa === 'undefined') {
     global.btoa = (str) => Buffer.from(str).toString('base64');
