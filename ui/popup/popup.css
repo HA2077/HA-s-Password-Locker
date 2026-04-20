@@ -20,10 +20,10 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 13px;
+    margin-bottom: 10px;
 }
-.header-logo { width: 45px; height: 45px; }
-.header-title { font-weight: 700; font-size: 16px; color: #00C853; letter-spacing: 0.5px; }
+.header-logo { width: 50px; height: 50px; }
+.header-title { font-weight: 800; font-size: 16px; color: #00C853; letter-spacing: 0.3px; transform: translateX(-5px); }
 .star-btn {
     text-decoration: none;
     color: #FFD700; /* Gold */
