@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup - HA's Password Locker</title>
+    <link rel="stylesheet" href="setup.css">
+</head>
+<body>
+    <div class="setup-container">
+        <header>
+            <img src="../../icons/Logo No Text (Main size).png" alt="Logo" class="header-logo">
+            <div class="header-title">HA's Password Locker</div>
+        </header>
+
+        <main>
+            <h1 class="setup-title">Welcome!</h1>
+            <p class="setup-subtitle">Let's set up your master password to get started.</p>
+
+            <div id="error-message" class="error-message"></div>
+
+            <form id="setup-form">
+                <div class="form-group">
+                    <label for="master-password">Create Master Password</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="master-password" placeholder="Enter master password" required minlength="8">
+                        <button type="button" id="toggle-password" class="toggle-btn">👁</button>
+                    </div>
+                    <div class="strength-bar">
+                        <div id="strength-fill" class="strength-fill"></div>
+                    </div>
+                    <span id="strength-text" class="strength-text"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Master Password</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="confirm-password" placeholder="Confirm password" required>
+                        <button type="button" id="toggle-confirm" class="toggle-btn">👁</button>
+                    </div>
+                    <span id="match-text" class="match-text"></span>
+                </div>
+
+                <div class="requirements">
+                    <p>Password must be:</p>
+                    <ul>
+                        <li id="req-length">At least 8 characters</li>
+                    </ul>
+                </div>
+
+                <button type="submit" id="setup-btn">CREATE VAULT</button>
+            </form>
+        </main>
+
+        <footer>
+            <p class="security-note">🔒 Your password is never stored. We only store a secure hash.</p>
+        </footer>
+    </div>
+
+    <script type="module" src="setup.js"></script>
+</body>
+</html>
