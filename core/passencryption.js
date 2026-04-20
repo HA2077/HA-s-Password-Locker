@@ -106,4 +106,4 @@ async function decrypt(Mkey, encryptedPackage){
     }
 }
 
-module.exports = { encrypt, decrypt };
+export { encrypt, decrypt };

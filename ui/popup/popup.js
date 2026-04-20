@@ -1,5 +1,3 @@
-import { generatePassword } from '../../core/logic.js';
-
 document.getElementById('tab-man').addEventListener('click', () => {
     const managerUrl = chrome.runtime.getURL('ui/manager/manager.html');
 
@@ -26,7 +24,7 @@ const checkboxes = {
     symbol: document.getElementById('use-symbols')
 };
 
-function runGeneration() {
+async function runGeneration() {
     let len = parseInt(lengthInput.value);
     const min = parseInt(lengthInput.min);
     const max = parseInt(lengthInput.max);
@@ -39,15 +37,21 @@ function runGeneration() {
         checkboxes.lower.checked = true;
     }
 
-    const pass = generatePassword(
-        len,
-        checkboxes.lower.checked,
-        checkboxes.upper.checked,
-        checkboxes.symbol.checked,
-        checkboxes.number.checked
-    );
-    
-    display.value = pass;
+    try{
+        const { generatePassword } = await import('../../core/logic.js');
+        
+        const pass = generatePassword(
+            len,
+            checkboxes.lower.checked,
+            checkboxes.upper.checked,
+            checkboxes.symbol.checked,
+            checkboxes.number.checked
+        );
+        
+        display.value = pass;
+    } catch (err) {
+        console.error('Generation failed:', err);
+    }
 }
 
 generateBtn.addEventListener('click', runGeneration);
@@ -61,12 +65,10 @@ copyBtn.addEventListener('click', () => {
     try{
         document.execCommand('copy');
         
-        // Visual Feedback
         const originalText = copyBtn.innerText;
         copyBtn.innerText = '✅';
         setTimeout(() => { copyBtn.innerText = originalText; }, 1500);
         
-        // Deselect text to look clean
         window.getSelection().removeAllRanges();
     } 
     catch (err){

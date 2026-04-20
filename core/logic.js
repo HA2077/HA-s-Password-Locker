@@ -90,6 +90,4 @@ function generatePassword(length = 16, useLower = true, useUpper = true, useSym 
     return passwordArray.join('');
 }
 
-if (typeof module !== 'undefined') {
-    module.exports = { generatePassword };
-}
+export { generatePassword };

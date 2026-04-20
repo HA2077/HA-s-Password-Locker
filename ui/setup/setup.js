@@ -2,8 +2,8 @@
   HA's Password Locker - Setup Module
   MADE BY : HA2077
 */
-// core modules loaded dynamically at submit time so UI listeners
-// always attach even if auth.js / storage.js are slow or unavailable
+
+// UI Elements - load immediately
 const form = document.getElementById('setup-form');
 const passwordInput = document.getElementById('master-password');
 const confirmInput = document.getElementById('confirm-password');
@@ -15,25 +15,31 @@ const matchText = document.getElementById('match-text');
 const reqLength = document.getElementById('req-length');
 const setupBtn = document.getElementById('setup-btn');
 const errorMessage = document.getElementById('error-message');
-function showError(message) {
+
+function showError(message){
     errorMessage.textContent = message;
     errorMessage.classList.add('show');
+    errorMessage.style.display = 'block';
 }
+
 function clearError() {
     errorMessage.classList.remove('show');
-    errorMessage.style.display = '';
+    errorMessage.style.display = 'none';
 }
+
 togglePasswordBtn.addEventListener('click', () => {
     const isVisible = passwordInput.type === 'text';
     passwordInput.type = isVisible ? 'password' : 'text';
     togglePasswordBtn.textContent = isVisible ? '👁' : '🔒';
 });
+
 toggleConfirmBtn.addEventListener('click', () => {
     const isVisible = confirmInput.type === 'text';
     confirmInput.type = isVisible ? 'password' : 'text';
     toggleConfirmBtn.textContent = isVisible ? '👁' : '🔒';
 });
-function calculateStrength(password) {
+
+function calculateStrength(password){
     let score = 0;
     
     if (password.length >= 8) score += 1;
@@ -46,38 +52,37 @@ function calculateStrength(password) {
     
     return score;
 }
-function updateStrengthUI(password) {
+
+function updateStrengthUI(password){
     const strength = calculateStrength(password);
     
-    if (password.length === 0) {
-        strengthFill.style.width = '0%';
-        strengthFill.style.backgroundColor = '';
-        strengthText.textContent = '';
-        strengthText.style.color = '';
-        reqLength.classList.remove('valid');
-        return;
+    let width = 10;
+    let color = '#444';
+    let text = 'Type a password...';
+    
+    if (password.length > 0){
+        if (strength <= 2) {
+            width = 25;
+            color = '#ff4444';
+            text = 'Weak';
+        } 
+        else if (strength <= 4){
+            width = 50;
+            color = '#ffaa00';
+            text = 'Fair';
+        } 
+        else if (strength <= 6){
+            width = 75;
+            color = '#00C853';
+            text = 'Good';
+        } 
+        else{
+            width = 100;
+            color = '#00C853';
+            text = 'Strong';
+        }
     }
-
-    let width, color, text;
-
-    if (strength <= 2) {
-        width = 25;
-        color = '#ff4444';
-        text = 'Weak';
-    } else if (strength <= 4) {
-        width = 50;
-        color = '#ffaa00';
-        text = 'Fair';
-    } else if (strength <= 6) {
-        width = 75;
-        color = '#00C853';
-        text = 'Good';
-    } else {
-        width = 100;
-        color = '#00C853';
-        text = 'Strong';
-    }
-
+    
     strengthFill.style.width = width + '%';
     strengthFill.style.backgroundColor = color;
     strengthText.textContent = text;
@@ -89,6 +94,7 @@ function updateStrengthUI(password) {
         reqLength.classList.remove('valid');
     }
 }
+
 function updateMatchUI() {
     const password = passwordInput.value;
     const confirm = confirmInput.value;
@@ -109,11 +115,14 @@ function updateMatchUI() {
         return false;
     }
 }
+
 passwordInput.addEventListener('input', () => {
     updateStrengthUI(passwordInput.value);
     if (confirmInput.value) updateMatchUI();
 });
+
 confirmInput.addEventListener('input', updateMatchUI);
+
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
     clearError();
@@ -137,9 +146,12 @@ form.addEventListener('submit', async (e) => {
     setupBtn.textContent = 'Creating Vault...';
     
     try {
-        const { hashPassword, generateSalt } = await import('../../core/auth.js');
-        const { storage } = await import('../../core/storage.js');
 
+        const [{ hashPassword, generateSalt }, { storage }] = await Promise.all([
+            import('../../core/auth.js'),
+            import('../../core/storage.js')
+        ]);
+        
         const salt = generateSalt();
         const hash = await hashPassword(password, salt);
         
@@ -154,11 +166,13 @@ form.addEventListener('submit', async (e) => {
             window.location.href = managerUrl;
         }, 1000);
         
-    } catch (error) {
+    } 
+    catch (error){
         console.error('Setup failed:', error);
         showError('Setup failed. Please try again.');
         setupBtn.disabled = false;
         setupBtn.textContent = 'CREATE VAULT';
     }
 });
+
 updateStrengthUI('');

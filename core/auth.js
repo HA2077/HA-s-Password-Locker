@@ -57,6 +57,4 @@ async function verifyPassword(password, storedHash, salt) {
     return computedHash === storedHash;
 }
 
-if (typeof module !== 'undefined') {
-    module.exports = { hashPassword, verifyPassword, generateSalt, PBKDF2_ITERATIONS };
-}
+export { hashPassword, verifyPassword, generateSalt, PBKDF2_ITERATIONS };

@@ -154,6 +154,4 @@ const sessionStorage = {
     }
 };
 
-if (typeof module !== 'undefined') {
-    module.exports = { storage, sessionStorage };
-}
+export { storage, sessionStorage };
