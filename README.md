@@ -1,6 +1,8 @@
 # HA's Password Locker
 
-> **Status:** v0.3 (Master Password System Complete)  
+> The project is stopped and will not be maintained or being developed further. The code is available for anyone to fork and continue development if they wish.
+
+> **Status:** v0.3 (Master Password System Complete)
 > **Mission:** A privacy-first, local-only password manager browser extension.
 
 <p align="center">
